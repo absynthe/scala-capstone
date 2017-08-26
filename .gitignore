@@ -51,5 +51,18 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+# Simple Build Tool
+# http://www.scala-sbt.org/release/docs/Getting-Started/Directories.html#configuring-version-control
+
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+.history
+.cache
+.lib/
+
 #Project specific stuff
 src/main/resources
