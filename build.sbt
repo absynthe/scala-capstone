@@ -1,6 +1,7 @@
 name := course.value ++ "-" ++ assignment.value
 
 scalaVersion := "2.11.8"
+val sparkVersion = "2.1.0"
 
 scalacOptions ++= Seq(
   "-feature",
@@ -17,15 +18,9 @@ scalacOptions ++= Seq(
 
 libraryDependencies ++= Seq(
   "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.6", // for visualization
-  // You don’t *have to* use Spark, but in case you want to, we have added the dependency
-  "org.apache.spark" %% "spark-sql" % "2.1.0",
-  // You don’t *have to* use akka-stream, but in case you want to, we have added the dependency
-  "com.typesafe.akka" %% "akka-stream" % "2.4.12",
-  "com.typesafe.akka" %% "akka-stream-testkit" % "2.4.12" % Test,
-  // You don’t *have to* use Monix, but in case you want to, we have added the dependency
-  "io.monix" %% "monix" % "2.1.1",
-  // You don’t *have to* use fs2, but in case you want to, we have added the dependency
-  "co.fs2" %% "fs2-io" % "0.9.2",
+  "org.apache.spark" %% "spark-core" % sparkVersion, // I chose to implement the assignment with Spark
+  "org.apache.spark" %% "spark-sql" % sparkVersion,
+  "org.apache.parquet" % "parquet-format" % "2.3.1",// Necessary to fix error 416 when SBT tries to install Spark dependencies
   "org.scalacheck" %% "scalacheck" % "1.12.1" % Test,
   "junit" % "junit" % "4.10" % Test
 )
