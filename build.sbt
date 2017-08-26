@@ -3,6 +3,8 @@ name := course.value ++ "-" ++ assignment.value
 scalaVersion := "2.11.8"
 val sparkVersion = "2.1.0"
 
+mainClass in Compile := Some("observatory.Main")
+
 scalacOptions ++= Seq(
   "-feature",
   "-deprecation",
@@ -18,9 +20,9 @@ scalacOptions ++= Seq(
 
 libraryDependencies ++= Seq(
   "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.6", // for visualization
+  "org.apache.parquet" % "parquet-format" % "2.3.1",// Necessary to fix error 416 when SBT tries to install Spark dependencies
   "org.apache.spark" %% "spark-core" % sparkVersion, // I chose to implement the assignment with Spark
   "org.apache.spark" %% "spark-sql" % sparkVersion,
-  "org.apache.parquet" % "parquet-format" % "2.3.1",// Necessary to fix error 416 when SBT tries to install Spark dependencies
   "org.scalacheck" %% "scalacheck" % "1.12.1" % Test,
   "junit" % "junit" % "4.10" % Test
 )
