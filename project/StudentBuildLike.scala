@@ -200,62 +200,43 @@ class StudentBuildLike protected() extends CommonBuild {
       }
       */
 
-      // Success, Coursera responds with 2xx HTTP status code
-      if (response.is2xx) {
-        val successfulSubmitMsg =
-          s"""|Successfully connected to Coursera. (Status $code)
-              |
+      code match {
+        // case Success, Coursera responds with 2xx HTTP status code
+        case cde if cde >= 200 && cde < 300 =>
+          val successfulSubmitMsg =
+            s"""|Successfully connected to Coursera. (Status $code)
+                |
                 |Assignment submitted successfully!
-              |
+                |
                 |You can see how you scored by going to:
-              |https://www.coursera.org/learn/$courseName/programming/$itemId/
-              |${
-            premiumItemId.fold("") { id =>
-              s"""or (for premium learners):
-                 |https://www.coursera.org/learn/$courseName/programming/$id
+                |https://www.coursera.org/learn/$courseName/programming/$itemId/
+                |${
+                  premiumItemId.fold("") { id =>
+                    s"""or (for premium learners):
+                       |https://www.coursera.org/learn/$courseName/programming/$id
                        """.stripMargin
-            }
+                  }
+                }
+                |and clicking on "My Submission".""".stripMargin
+          s.log.info(successfulSubmitMsg)
+
+        // case Failure, Coursera responds with 4xx HTTP status code (client-side failure)
+        case cde if cde >= 400 && cde < 500 =>
+          val result = JSON.parseFull(respBody)
+          val learnerMsg = result match {
+            case Some(resp: MapMapString) => // MapMapString to get around erasure
+              resp.map("details")("learnerMessage")
+            case Some(x) => // shouldn't happen
+              "Could not parse Coursera's response:\n" + x
+            case None =>
+              "Could not parse Coursera's response:\n" + respBody
           }
-              |and clicking on "My Submission".""".stripMargin
-        s.log.info(successfulSubmitMsg)
-      }
-
-      // Failure, Coursera responds with 4xx HTTP status code (client-side failure)
-      else if (response.is4xx) {
-        val result = JSON.parseFull(respBody)
-        val learnerMsg = result match {
-          case Some(resp: MapMapString) => // MapMapString to get around erasure
-            resp.map("details")("learnerMessage")
-          case Some(x) => // shouldn't happen
-            "Could not parse Coursera's response:\n" + x
-          case None =>
-            "Could not parse Coursera's response:\n" + respBody
-        }
-        val failedSubmitMsg =
-          s"""|Submission failed.
-              |There was something wrong while attempting to submit.
-              |Coursera says:
-              |$learnerMsg (Status $code)""".stripMargin
-        s.log.error(failedSubmitMsg)
-      }
-
-      // Failure, Coursera responds with 5xx HTTP status code (server-side failure)
-      else if (response.is5xx) {
-        val failedSubmitMsg =
-          s"""|Submission failed.
-              |Coursera seems to be unavailable at the moment (Status $code)
-              |Check https://status.coursera.org/ and try again in a few minutes.
-           """.stripMargin
-        s.log.error(failedSubmitMsg)
-      }
-
-      // Failure, Coursera repsonds with an unexpected status code
-      else {
-        val failedSubmitMsg =
-          s"""|Submission failed.
-              |Coursera replied with an unexpected code (Status $code)
-           """.stripMargin
-        s.log.error(failedSubmitMsg)
+          val failedSubmitMsg =
+            s"""|Submission failed.
+                |There was something wrong while attempting to submit.
+                |Coursera says:
+                |$learnerMsg (Status $code)""".stripMargin
+          s.log.error(failedSubmitMsg)
       }
     }
 

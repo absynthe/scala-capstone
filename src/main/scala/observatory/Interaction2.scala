@@ -28,7 +28,7 @@ object Interaction2 {
     *         this method should return the closest value that is included
     *         in the `selectedLayer` bounds.
     */
-  def yearSelection(selectedLayer: Signal[Layer], sliderValue: Signal[Year]): Signal[Year] = {
+  def yearSelection(selectedLayer: Signal[Layer], sliderValue: Signal[Int]): Signal[Int] = {
     ???
   }
 
@@ -37,7 +37,7 @@ object Interaction2 {
     * @param selectedYear The selected year
     * @return The URL pattern to retrieve tiles
     */
-  def layerUrlPattern(selectedLayer: Signal[Layer], selectedYear: Signal[Year]): Signal[String] = {
+  def layerUrlPattern(selectedLayer: Signal[Layer], selectedYear: Signal[Int]): Signal[String] = {
     ???
   }
 
@@ -46,7 +46,7 @@ object Interaction2 {
     * @param selectedYear The selected year
     * @return The caption to show
     */
-  def caption(selectedLayer: Signal[Layer], selectedYear: Signal[Year]): Signal[String] = {
+  def caption(selectedLayer: Signal[Layer], selectedYear: Signal[Int]): Signal[String] = {
     ???
   }
 
@@ -63,5 +63,5 @@ object LayerName {
   * @param colorScale Color scale used by the layer
   * @param bounds Minimum and maximum year supported by the layer
   */
-case class Layer(layerName: LayerName, colorScale: Seq[(Temperature, Color)], bounds: Range)
+case class Layer(layerName: LayerName, colorScale: Seq[(Double, Color)], bounds: Range)
 

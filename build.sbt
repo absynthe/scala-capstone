@@ -3,8 +3,6 @@ name := course.value ++ "-" ++ assignment.value
 scalaVersion := "2.11.8"
 val sparkVersion = "2.1.0"
 
-mainClass in Compile := Some("observatory.Main")
-
 scalacOptions ++= Seq(
   "-feature",
   "-deprecation",

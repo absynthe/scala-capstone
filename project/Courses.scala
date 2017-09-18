@@ -137,7 +137,7 @@ object Courses {
     "capstone" -> Map(
       "observatory" -> Assignment(
         packageName = "observatory",
-        courseraId = CourseraId("XdlPsYjPEeeJEQ6TH2unjA", "RIjrU", "ekWDs", Some("ekWDs")),
+        courseraId = CourseraId("l1U9JXBMEea_kgqTjVyNvw", "CWoWG", "XK71Q", Some("Cr2wv")),
         maxScore = 10d,
         styleCheck = Some(StyleCheck(0.2, "scalastyle" :: "observatory.xml" :: Nil)),
         options = Map("Xmx"->"1600m", "grader-memory"->"2048", "grader-cpu" -> "2")

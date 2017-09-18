@@ -9,8 +9,7 @@ val capstoneUI =
         Seq(
           rootSourceDirectory / "Interaction2.scala",
           rootSourceDirectory / "Signal.scala",
-          rootSourceDirectory / "models.scala",
-          rootSourceDirectory / "package.scala"
+          rootSourceDirectory / "models.scala"
         )
       },
       libraryDependencies ++= Seq(
