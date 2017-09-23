@@ -3,7 +3,7 @@ package observatory
 import java.time.LocalDate
 
 import org.apache.log4j.{Level, Logger}
-import org.apache.spark.sql.{Dataset, Encoder, Encoders, SparkSession}
+import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.types.{DataTypes, StructField, StructType}
 
 /**
@@ -27,11 +27,6 @@ object Extraction {
 
   val stationsSchema = StructType(Array(stnID, wbanID, latitude, longitude))
   val temperatureSchema = StructType(Array(stnID, wbanID, month, day, temperature))
-
-  val localDateEncoder: Encoder[LocalDate] = Encoders.kryo[LocalDate]
-  val temperatureEncoder: Encoder[Double] = Encoders.scalaDouble
-  val locationEncoder: Encoder[Location] = Encoders.kryo[Location]
-  val finalEncoder: Encoder[(LocalDate, Location, Double)] = Encoders.tuple(localDateEncoder, locationEncoder, temperatureEncoder)
 
 
   /**
@@ -57,13 +52,12 @@ object Extraction {
     val filteredStations = stations.filter("latitude IS NOT NULL and longitude IS NOT NULL")
     val joined = filteredStations.join(temperatures, stations("stnID") <=> temperatures("stnID") &&  stations("wbanID") <=> temperatures("wbanID"))
 
-    //tip: convert to RDD to avoid having to use the custom encoder for LocalDate
-    joined.map(row => {
+    joined.rdd.map(row => {
       val temperature: Double = (row.getAs[Double]("temperature") - 32) * 5 / 9
       val location: Location = Location(row.getAs[Double]("latitude"), row.getAs[Double]("longitude"))
       val localDate: LocalDate = LocalDate.of(year, row.getAs[Int]("month"), row.getAs[Int]("day"))
       (localDate, location, temperature)
-    })(finalEncoder).collect
+    }).collect
   }
 
   /**
@@ -71,10 +65,10 @@ object Extraction {
     * @return A sequence containing, for each location, the average temperature over the year.
     */
   def locationYearlyAverageRecords(records: Iterable[(LocalDate, Location, Double)]): Iterable[(Location, Double)] = {
-    val recordsRDD = spark.sparkContext.parallelize(records.toSeq).map { case (localDate, location, temp) => (java.sql.Date.valueOf(localDate), location, temp) }
-    val recordsDS = recordsRDD.toDS().withColumnRenamed("_1", "date")
-      .withColumnRenamed("_2", "location")
-      .withColumnRenamed("_3", "temperature")
+    val recordsRDD = spark.sparkContext.parallelize(records.toSeq).map { case (_, location, temp) => (location, temp) }
+    val recordsDS = recordsRDD.toDS()
+      .withColumnRenamed("_1", "location")
+      .withColumnRenamed("_2", "temperature")
 
     recordsDS.groupBy("location").mean("temperature").as[(Location, Double)].collect
   }

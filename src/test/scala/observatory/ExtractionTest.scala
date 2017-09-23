@@ -37,12 +37,12 @@ trait ExtractionTest extends FunSuite {
     val joined = stations.join(temperatures, stations("stnID") <=> temperatures("stnID") &&  stations("wbanID") <=> temperatures("wbanID"))
 
     //converting to rdd to avoid having to write custom encoder for LocalDate
-    val formatted = joined.map(row => {
+    val formatted = joined.rdd.map(row => {
       val temperature = (row.getAs[Double]("temperature") - 32) * 5 / 9
       val location: Location = Location(row.getAs[Double]("latitude"), row.getAs[Double]("longitude"))
       val localDate: LocalDate = LocalDate.of(2017, row.getAs[Int]("month"), row.getAs[Int]("day"))
       (localDate, location, temperature)
-    })(finalEncoder)
+    })
 
     val t2 = Extraction.locationYearlyAverageRecords(formatted.collect)
     t2.foreach(println)
