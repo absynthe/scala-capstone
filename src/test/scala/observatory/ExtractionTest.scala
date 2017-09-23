@@ -2,10 +2,9 @@ package observatory
 
 import java.time.LocalDate
 
-import observatory.Extraction.{finalEncoder, stationsSchema, temperatureSchema}
+import observatory.Extraction.{stationsSchema, temperatureSchema}
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
-import org.junit.runner.RunWith
 import org.scalatest.{FunSuite, Ignore}
 
 trait ExtractionTest extends FunSuite {
