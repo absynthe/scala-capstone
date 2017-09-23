@@ -6,9 +6,9 @@ import observatory.Extraction.{finalEncoder, stationsSchema, temperatureSchema}
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
 import org.junit.runner.RunWith
-import org.scalatest.FunSuite
+import org.scalatest.{FunSuite, Ignore}
 
-
+@Ignore
 trait ExtractionTest extends FunSuite {
   Logger.getLogger("org.apache.spark").setLevel(Level.WARN)
 
@@ -45,6 +45,5 @@ trait ExtractionTest extends FunSuite {
     })(finalEncoder)
 
     val t2 = Extraction.locationYearlyAverageRecords(formatted.collect)
-    t2.foreach(println)
   }
 }
