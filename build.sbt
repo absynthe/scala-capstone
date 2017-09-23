@@ -16,6 +16,9 @@ scalacOptions ++= Seq(
   "-Xexperimental"
 )
 
+fork := true
+javaOptions += "-Xmx1500m"
+
 libraryDependencies ++= Seq(
   "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.6", // for visualization
   "org.apache.parquet" % "parquet-format" % "2.3.1",// Necessary to fix error 416 when SBT tries to install Spark dependencies

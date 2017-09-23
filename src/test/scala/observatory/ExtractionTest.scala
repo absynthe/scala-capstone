@@ -8,16 +8,16 @@ import org.apache.spark.sql.SparkSession
 import org.junit.runner.RunWith
 import org.scalatest.{FunSuite, Ignore}
 
-@Ignore
 trait ExtractionTest extends FunSuite {
   Logger.getLogger("org.apache.spark").setLevel(Level.WARN)
 
-  test("First test") {
+  test("Extraction test") {
     val spark: SparkSession = SparkSession.builder().appName("Observatory")
+      .config("spark.executor.memory", "1G")
       .config("spark.master", "local").getOrCreate()
 
     val stationsResourcePath = getClass.getResource("/stations.csv").getPath.replace("%20", " ")
-    val temperaturesResourcePath = getClass.getResource("/1975.csv").getPath.replace("%20", " ")
+    val temperaturesResourcePath = getClass.getResource("/2015.csv").getPath.replace("%20", " ")
 
     import spark.implicits._
 
@@ -45,5 +45,6 @@ trait ExtractionTest extends FunSuite {
     })(finalEncoder)
 
     val t2 = Extraction.locationYearlyAverageRecords(formatted.collect)
+    t2.foreach(println)
   }
 }

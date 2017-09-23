@@ -12,6 +12,7 @@ import org.apache.spark.sql.types.{DataTypes, StructField, StructType}
 object Extraction {
   Logger.getLogger("org.apache.spark").setLevel(Level.WARN)
   val spark: SparkSession = SparkSession.builder().appName("Observatory")
+    .config("spark.executor.memory", "1G")
     .config("spark.master", "local").getOrCreate()
 
   import spark.implicits._
