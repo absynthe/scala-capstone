@@ -2,6 +2,7 @@ package observatory
 
 import com.sksamuel.scrimage.{Image, Pixel}
 import scala.math._
+import observatory.Visualization._
 
 /**
   * 3rd milestone: interactive visualization
@@ -15,10 +16,11 @@ object Interaction {
     * @return The latitude and longitude of the top-left corner of the tile, as per http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames
     */
   def tileLocation(zoom: Int, x: Int, y: Int): Location = {
-    val n = pow(2.0, zoom)
-    val lon_deg = x / n * 360.0 - 180.0
-    val lat_rad = atan(sinh(Pi * (1 - 2 * y / n)))
+    val n = 1 << zoom
+    val lon_deg = x.toDouble / n * 360.0 - 180.0
+    val lat_rad = atan(sinh(Pi * (1.0 - 2.0 * y.toDouble / n)))
     val lat_deg = toDegrees(lat_rad)
+
     Location(lat_deg, lon_deg)
   }
 
@@ -31,7 +33,23 @@ object Interaction {
     * @return A 256×256 image showing the contents of the tile defined by `x`, `y` and `zooms`
     */
   def tile(temperatures: Iterable[(Location, Double)], colors: Iterable[(Double, Color)], zoom: Int, x: Int, y: Int): Image = {
-    ???
+    val imageWidth = 256
+    val imageHeight = 256
+
+    val pixels = (0 until imageHeight * imageWidth).map(index => {
+
+      val xPos = (index % imageWidth).toDouble / imageWidth + x // column of image as fraction with offset x
+      val yPos = (index / imageHeight).toDouble / imageHeight + y // row of image as fraction with offset y
+
+      interpolateColor(
+        colors,
+        predictTemperature(
+          temperatures,
+          tileLocation(zoom, xPos.toInt, yPos.toInt)
+        )
+      ).pixel(127)
+    }).seq
+    Image(imageWidth, imageHeight, pixels.toArray)
   }
 
   /**
@@ -46,7 +64,15 @@ object Interaction {
                            yearlyData: Iterable[(Int, Data)],
                            generateImage: (Int, Int, Int, Int, Data) => Unit
                          ): Unit = {
-    ???
+    val zoomLevels = 0 to 3
+    for {
+      (year, data) <- yearlyData
+      zoom <- zoomLevels
+      x <- 0 until 1 << zoom
+      y <- 0 until 1 << zoom
+    } {
+      generateImage(year, zoom, x, y, data)
+    }
   }
 
 }

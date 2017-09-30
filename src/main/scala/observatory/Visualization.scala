@@ -137,7 +137,7 @@ object Visualization {
             temperatures,
             getLocationFromIndex(index)
           )
-        ).pixel
+        ).pixel(255)
     }.seq
 
     Image(imageWidth, imageHeight, pixels.toArray)
