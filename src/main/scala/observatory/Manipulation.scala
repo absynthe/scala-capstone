@@ -11,7 +11,14 @@ object Manipulation {
     *         returns the predicted temperature at this location
     */
   def makeGrid(temperatures: Iterable[(Location, Double)]): (Int, Int) => Double = {
-    ???
+    val locationToTemperatureMap: Map[Location, Double] = {
+      for {
+        lat <- -89 to 90
+        lon <- -180 to 179
+      } yield Location(lat, lon) -> Visualization.predictTemperature(temperatures, Location(lat, lon))
+    }.toMap
+
+    (lat, lon) => locationToTemperatureMap(Location(lat, lon))
   }
 
   /**
@@ -20,16 +27,22 @@ object Manipulation {
     * @return A function that, given a latitude and a longitude, returns the average temperature at this location
     */
   def average(temperaturess: Iterable[Iterable[(Location, Double)]]): (Int, Int) => Double = {
-    ???
+    val grids: Iterable[(Int, Int) => Double] = temperaturess.map(makeGrid)
+
+    (lat, lon) => {
+      val temperatures = grids.map(grid => grid(lat, lon))
+      temperatures.sum / temperatures.size
+    }
   }
 
   /**
     * @param temperatures Known temperatures
-    * @param normals A grid containing the “normal” temperatures
+    * @param normals      A grid containing the “normal” temperatures
     * @return A grid containing the deviations compared to the normal temperatures
     */
   def deviation(temperatures: Iterable[(Location, Double)], normals: (Int, Int) => Double): (Int, Int) => Double = {
-    ???
+    val knownTemperaturesGrid = makeGrid(temperatures)
+    (lat, lon) => knownTemperaturesGrid(lat, lon) - normals(lat, lon)
   }
 
 
