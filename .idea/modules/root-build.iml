@@ -12,7 +12,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
-      <library name="SBT: sbt-and-plugins">
+      <library name="sbt: sbt-and-plugins">
         <CLASSES>
           <root url="jar://$USER_HOME$/.ivy2/cache/args4j/args4j/bundles/args4j-2.0.26.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/com.google.code.findbugs/jsr305/jars/jsr305-1.3.9.jar!/" />
@@ -144,7 +144,6 @@
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/com/google/protobuf/protobuf-java/2.5.0/protobuf-java-2.5.0-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/com/jcraft/jsch/0.1.46/jsch-0.1.46-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.6/paranamer-2.6-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/com/typesafe/config/1.2.0/config-1.2.0-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/commons-codec/commons-codec/1.10/commons-codec-1.10-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/io/apigee/rhino/1.7R5pre4/rhino-1.7R5pre4-sources.jar!/" />
@@ -155,8 +154,6 @@
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/junit/junit/4.10/junit-4.10-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/json4s/json4s-ast_2.10/3.2.10/json4s-ast_2.10-3.2.10-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/json4s/json4s-core_2.10/3.2.10/json4s-core_2.10-3.2.10-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/jsoup/jsoup/1.10.2/jsoup-1.10.2-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scala-js/closure-compiler-java-6/v20160517/closure-compiler-java-6-v20160517-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scala-js/scalajs-ir_2.10/0.6.11/scalajs-ir_2.10-0.6.11-sources.jar!/" />
@@ -171,7 +168,6 @@
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.8/scala-reflect-2.11.8-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scala-sbt/ivy/ivy/2.3.0-sbt-c5d1b95fdcc1e1007740ffbecf4eb07abc51ec93/ivy-2.3.0-sbt-c5d1b95fdcc1e1007740ffbecf4eb07abc51ec93-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scala-sbt/launcher-interface/1.0.0-M1/launcher-interface-1.0.0-M1-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scala-sbt/test-interface/1.0/test-interface-1.0-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scalaj/scalaj-http_2.10/2.2.1/scalaj-http_2.10-2.2.1-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scalamacros/quasiquotes_2.10/2.1.0/quasiquotes_2.10-2.1.0-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scalariform/scalariform_2.10/0.1.7/scalariform_2.10-0.1.7-sources.jar!/" />
@@ -179,8 +175,6 @@
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scalaz/scalaz-concurrent_2.10/7.2.8/scalaz-concurrent_2.10-7.2.8-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scalaz/scalaz-core_2.10/7.2.8/scalaz-core_2.10-7.2.8-sources.jar!/" />
           <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scalaz/scalaz-effect_2.10/7.2.8/scalaz-effect_2.10-7.2.8-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/spire-math/jawn-parser_2.10/0.6.0/jawn-parser_2.10-0.6.0-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/spire-math/json4s-support_2.10/0.6.0/json4s-support_2.10-0.6.0-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
